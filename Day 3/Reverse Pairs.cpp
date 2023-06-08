@@ -4,7 +4,6 @@ public:
     void merge(vector<int> &nums, int l, int mid, int r)
     {
         int right = mid + 1;
-        vector<int> tmp;
         int low = l;
         while (l <= mid && right <= r)
         {
