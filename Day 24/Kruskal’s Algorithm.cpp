@@ -107,6 +107,7 @@ int main()
         }
 
         Solution obj;
+
         cout << obj.spanningTree(V, adj) << "\n";
     }
 

@@ -6,75 +6,77 @@ using namespace std;
 
 class Solution
 {
-public:
+} public :
     // Function to find number of strongly connected components in the graph.
 
-    void dfs(int i, vector<vector<int>> &adj, vector<int> &vis, stack<int> &st)
-    {
-        vis[i] = 1;
+    void
+    dfs(int i, vector<vector<int>> &adj, vector<int> &vis, stack<int> &st)
+{
+    vis[i] = 1;
 
+    for (auto &ele : adj[i])
+    {
+        if (!vis[ele])
+        {
+            dfs(ele, adj, vis, st);
+        }
+    }
+
+    st.push(i);
+}
+void dfs2(int i, vector<int> adj[], vector<int> &vis)
+{
+    vis[i] = 1;
+
+    for (auto &ele : adj[i])
+    {
+        if (!vis[ele])
+        {
+            dfs2(ele, adj, vis);
+        }
+    }
+}
+
+int kosaraju(int V, vector<vector<int>> &adj)
+{
+    // find order ->topt
+    // reverse edges
+    // dfs to cnt components
+
+    stack<int> st;
+    vector<int> vis(V, 0);
+    for (int i = 0; i < V; i++)
+    {
+        if (!vis[i])
+            dfs(i, adj, vis, st);
+    }
+
+    vector<int> adjr[V];
+
+    for (int i = 0; i < V; i++)
+    {
+        vis[i] = 0;
         for (auto &ele : adj[i])
         {
-            if (!vis[ele])
-            {
-                dfs(ele, adj, vis, st);
-            }
+            adjr[ele].push_back(i);
         }
-
-        st.push(i);
     }
-    void dfs2(int i, vector<int> adj[], vector<int> &vis)
+
+    int ct = 0;
+    while (!st.empty())
     {
-        vis[i] = 1;
-
-        for (auto &ele : adj[i])
+        int z = st.top();
+        st.pop();
+        if (!vis[z])
         {
-            if (!vis[ele])
-            {
-                dfs2(ele, adj, vis);
-            }
+            dfs2(z, adjr, vis);
+            ct++;
         }
     }
-
-    int kosaraju(int V, vector<vector<int>> &adj)
-    {
-        // find order ->topt
-        // reverse edges
-        // dfs to cnt components
-
-        stack<int> st;
-        vector<int> vis(V, 0);
-        for (int i = 0; i < V; i++)
-        {
-            if (!vis[i])
-                dfs(i, adj, vis, st);
-        }
-
-        vector<int> adjr[V];
-
-        for (int i = 0; i < V; i++)
-        {
-            vis[i] = 0;
-            for (auto &ele : adj[i])
-            {
-                adjr[ele].push_back(i);
-            }
-        }
-
-        int ct = 0;
-        while (!st.empty())
-        {
-            int z = st.top();
-            st.pop();
-            if (!vis[z])
-            {
-                dfs2(z, adjr, vis);
-                ct++;
-            }
-        }
-        return ct;
-    }
-};
+    return ct;
+}
+}
+;
 
 //{ Driver Code Starts.
 

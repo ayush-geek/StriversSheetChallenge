@@ -71,6 +71,7 @@ int main()
             {
                 cout << matrix[i][j] << " ";
             }
+
             cout << "\n";
         }
     }

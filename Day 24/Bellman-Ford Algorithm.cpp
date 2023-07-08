@@ -67,6 +67,7 @@ int main()
     cin >> t;
     while (t--)
     {
+
         int N, m;
         cin >> N >> m;
         vector<vector<int>> edges;
